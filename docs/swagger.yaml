@@ -1,0 +1,183 @@
+definitions:
+  utils.RequestGenerateVoucher:
+    properties:
+      campaign_id:
+        description: |-
+          ID uint32 `json:"id"`
+          UserID     *uint32 `json:"user_id" example:"1"`
+        example: 1
+        type: integer
+    type: object
+  utils.RequestPurchase:
+    properties:
+      subscription_plan_details_id:
+        example: 1
+        type: integer
+      user_id:
+        example: 1
+        type: integer
+      voucher_code:
+        example: "0890"
+        type: string
+    type: object
+  utils.Response:
+    properties:
+      data: {}
+      is_success:
+        type: boolean
+      message:
+        type: string
+      pagination: {}
+    type: object
+  utils.ResponseFailureBadRequest:
+    properties:
+      data:
+        example: "null"
+        type: string
+      is_success:
+        example: false
+        type: boolean
+      message:
+        example: Có lỗi khi gởi dữ liệu lên server, vui lòng kiểm tra lại!!!
+        type: string
+    type: object
+  utils.ResponseFailureServerError:
+    properties:
+      data:
+        example: "null"
+        type: string
+      is_success:
+        example: false
+        type: boolean
+      message:
+        example: Có lỗi xảy ra tu phia server!!!
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+info:
+  contact: {}
+  description: API Document
+  title: Documenting API
+  version: "3.0"
+paths:
+  /api/campaign/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Check Eligibility Campaign
+      parameters:
+      - default: 1
+        description: campaign id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureServerError'
+      summary: Check Eligibility Campaign
+      tags:
+      - campaign
+  /api/purchase:
+    post:
+      consumes:
+      - application/json
+      description: Purchase
+      parameters:
+      - description: Purchae Request Body
+        in: body
+        name: voucher
+        required: true
+        schema:
+          $ref: '#/definitions/utils.RequestPurchase'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureServerError'
+      summary: Purchase
+      tags:
+      - purchase
+  /api/voucher:
+    get:
+      consumes:
+      - application/json
+      description: Check Valid Voucher
+      parameters:
+      - description: voucher code
+        in: query
+        name: voucher_code
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureServerError'
+      summary: Check Valid Voucher
+      tags:
+      - voucher
+    post:
+      consumes:
+      - application/json
+      description: Generate Voucher
+      parameters:
+      - description: User Request Body
+        in: body
+        name: voucher
+        required: true
+        schema:
+          $ref: '#/definitions/utils.RequestGenerateVoucher'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/utils.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureBadRequest'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/utils.ResponseFailureServerError'
+      summary: Generate Voucher
+      tags:
+      - voucher
+swagger: "2.0"

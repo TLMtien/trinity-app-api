@@ -1,0 +1,5 @@
+# mac OS
+*.DS_Store
+
+# Database volumne
+volumes/
