@@ -1,5 +1,5 @@
 
-![schema-database](public/schema-database.png)
+![schema-database](/public/schema-database.png)
 
 ## 1. Local Setup Guide - Build project on local (using docker):
 *	Create docker network
@@ -67,3 +67,4 @@
 	-	Cron job for expired unused vouchers: a scheduled cron job will periodically check for vouchers that have expired but have not yet been redeemed. For each expired unused voucher:
 		The Holding Vouchers count will be decreased (since the voucher is no longer valid).
 		The Available Vouchers count will be increased, making the voucher available for new issuance.
+
