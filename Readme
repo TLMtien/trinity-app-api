@@ -1,5 +1,5 @@
 
-![schema-database](/public/schema-database.png)
+![schema-database](public/schema-database.png)
 
 ## 1. Local Setup Guide - Build project on local (using docker):
 *	Create docker network
